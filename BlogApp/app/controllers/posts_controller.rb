@@ -1,0 +1,59 @@
+class PostsController < ApplicationController
+
+layout "application"
+
+before_filter :get_post_object, :only =>[:show, :edit, :update,:destroy]
+
+private
+
+def get_post_object
+    @post=Post.find_by_id(params[:id])
+    if @post.nil?
+    flash[:notice]="sorry,no post was found!"
+    redirect_to posts_path
+    end
+end
+
+public 
+
+
+  def index
+    @posts=Post.all
+  end
+  def show
+    @comment=Comment.new
+  end
+  def edit
+  end
+  def update
+  
+    if @post.update_attributes(params[:post])
+      flash[:notice] = "post has been updated"
+      redirect_to post_path(@post)
+    else
+      render :action =>:edit
+    end
+  end
+
+  def new
+   @post = Post.new
+  end
+
+  def create
+   @post = Post.new(params[:post])
+   if @post.save 
+     flash[:notice] = "post has been successfully saved"
+     redirect_to posts_path 
+   else
+    render :action =>:new
+   end
+ end
+  
+  def destroy
+   
+  @post.destroy
+  flash[:notice]="successully deleted the post"
+  redirect_to posts_path
+  end
+  
+end

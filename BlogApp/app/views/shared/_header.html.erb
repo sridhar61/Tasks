@@ -1,0 +1,7 @@
+<div id="header">
+  <h2> The BlogAPP<?h2>
+  
+  <div id="nav">
+    <%= link_to "posts", posts_path, :class => (params[:controller]=="posts" ? "active" : "") %>|<%= link_to "categories", categories_path, :class => (params[:controller]=="categories" ? "active" : "") %>
+  </div>
+</div>   

@@ -1,0 +1,12 @@
+<% if @post.comments.empty? %>
+No comments found!
+<% else %>
+<% @post.comments.each do |comment| %>
+<div style="padding: 10px; margin: 10px; background: lightgreen; border: 2px solid green">
+<%= simple_format(comment.comment) %>
+<br />
+<small>Comment posted on: <%= format_date(comment.created_at) %></small>
+<%= link_to "Delete comment",post_comment_path(@post,comment),:confirm=> 'Are you sure?',:method=> :delete %>
+</div>
+<% end %>
+<%end %>
